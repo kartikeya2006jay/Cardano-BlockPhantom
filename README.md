@@ -1,203 +1,70 @@
-# negotiator
+# Getting Started with Create React App
 
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![Node.js Version][node-version-image]][node-version-url]
-[![Build Status][github-actions-ci-image]][github-actions-ci-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-An HTTP content negotiator for Node.js
+## Available Scripts
 
-## Installation
+In the project directory, you can run:
 
-```sh
-$ npm install negotiator
-```
+### `npm start`
 
-## API
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-```js
-var Negotiator = require('negotiator')
-```
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### Accept Negotiation
+### `npm test`
 
-```js
-availableMediaTypes = ['text/html', 'text/plain', 'application/json']
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-// The negotiator constructor receives a request object
-negotiator = new Negotiator(request)
+### `npm run build`
 
-// Let's say Accept header is 'text/html, application/*;q=0.2, image/jpeg;q=0.8'
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-negotiator.mediaTypes()
-// -> ['text/html', 'image/jpeg', 'application/*']
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-negotiator.mediaTypes(availableMediaTypes)
-// -> ['text/html', 'application/json']
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-negotiator.mediaType(availableMediaTypes)
-// -> 'text/html'
-```
+### `npm run eject`
 
-You can check a working example at `examples/accept.js`.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-#### Methods
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-##### mediaType()
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-Returns the most preferred media type from the client.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-##### mediaType(availableMediaType)
+## Learn More
 
-Returns the most preferred media type from a list of available media types.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-##### mediaTypes()
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Returns an array of preferred media types ordered by the client preference.
+### Code Splitting
 
-##### mediaTypes(availableMediaTypes)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-Returns an array of preferred media types ordered by priority from a list of
-available media types.
+### Analyzing the Bundle Size
 
-### Accept-Language Negotiation
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-```js
-negotiator = new Negotiator(request)
+### Making a Progressive Web App
 
-availableLanguages = ['en', 'es', 'fr']
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-// Let's say Accept-Language header is 'en;q=0.8, es, pt'
+### Advanced Configuration
 
-negotiator.languages()
-// -> ['es', 'pt', 'en']
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-negotiator.languages(availableLanguages)
-// -> ['es', 'en']
+### Deployment
 
-language = negotiator.language(availableLanguages)
-// -> 'es'
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-You can check a working example at `examples/language.js`.
+### `npm run build` fails to minify
 
-#### Methods
-
-##### language()
-
-Returns the most preferred language from the client.
-
-##### language(availableLanguages)
-
-Returns the most preferred language from a list of available languages.
-
-##### languages()
-
-Returns an array of preferred languages ordered by the client preference.
-
-##### languages(availableLanguages)
-
-Returns an array of preferred languages ordered by priority from a list of
-available languages.
-
-### Accept-Charset Negotiation
-
-```js
-availableCharsets = ['utf-8', 'iso-8859-1', 'iso-8859-5']
-
-negotiator = new Negotiator(request)
-
-// Let's say Accept-Charset header is 'utf-8, iso-8859-1;q=0.8, utf-7;q=0.2'
-
-negotiator.charsets()
-// -> ['utf-8', 'iso-8859-1', 'utf-7']
-
-negotiator.charsets(availableCharsets)
-// -> ['utf-8', 'iso-8859-1']
-
-negotiator.charset(availableCharsets)
-// -> 'utf-8'
-```
-
-You can check a working example at `examples/charset.js`.
-
-#### Methods
-
-##### charset()
-
-Returns the most preferred charset from the client.
-
-##### charset(availableCharsets)
-
-Returns the most preferred charset from a list of available charsets.
-
-##### charsets()
-
-Returns an array of preferred charsets ordered by the client preference.
-
-##### charsets(availableCharsets)
-
-Returns an array of preferred charsets ordered by priority from a list of
-available charsets.
-
-### Accept-Encoding Negotiation
-
-```js
-availableEncodings = ['identity', 'gzip']
-
-negotiator = new Negotiator(request)
-
-// Let's say Accept-Encoding header is 'gzip, compress;q=0.2, identity;q=0.5'
-
-negotiator.encodings()
-// -> ['gzip', 'identity', 'compress']
-
-negotiator.encodings(availableEncodings)
-// -> ['gzip', 'identity']
-
-negotiator.encoding(availableEncodings)
-// -> 'gzip'
-```
-
-You can check a working example at `examples/encoding.js`.
-
-#### Methods
-
-##### encoding()
-
-Returns the most preferred encoding from the client.
-
-##### encoding(availableEncodings)
-
-Returns the most preferred encoding from a list of available encodings.
-
-##### encodings()
-
-Returns an array of preferred encodings ordered by the client preference.
-
-##### encodings(availableEncodings)
-
-Returns an array of preferred encodings ordered by priority from a list of
-available encodings.
-
-## See Also
-
-The [accepts](https://npmjs.org/package/accepts#readme) module builds on
-this module and provides an alternative interface, mime type validation,
-and more.
-
-## License
-
-[MIT](LICENSE)
-
-[npm-image]: https://img.shields.io/npm/v/negotiator.svg
-[npm-url]: https://npmjs.org/package/negotiator
-[node-version-image]: https://img.shields.io/node/v/negotiator.svg
-[node-version-url]: https://nodejs.org/en/download/
-[coveralls-image]: https://img.shields.io/coveralls/jshttp/negotiator/master.svg
-[coveralls-url]: https://coveralls.io/r/jshttp/negotiator?branch=master
-[downloads-image]: https://img.shields.io/npm/dm/negotiator.svg
-[downloads-url]: https://npmjs.org/package/negotiator
-[github-actions-ci-image]: https://img.shields.io/github/workflow/status/jshttp/negotiator/ci/master?label=ci
-[github-actions-ci-url]: https://github.com/jshttp/negotiator/actions/workflows/ci.yml
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
